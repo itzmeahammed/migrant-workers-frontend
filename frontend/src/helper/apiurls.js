@@ -1,0 +1,10 @@
+const url = process.env.REACT_APP_BACK_END_URL;
+export const SIGN_UP_URL = `${url}/api/user/signUp`;
+export const SIGN_IN_URL = `${url}/api/user/signIn`;
+export const APPLY_JOB_URL = `${url}/api/apply/applyJob`;
+export const GET_ALL_JOBS = `${url}/api/job/getAllJobs`;
+export const GET_APPLIED_JOBS_USER_URL = `${url}/api/apply/getApplicationsByUser`;
+export const GET_APPLIED_JOBS_ALL_URL = `${url}/api/apply/getApplicationsByQuery`;
+export const POST_JOB_URL = `${url}/api/job/createJob`;
+export const SHORTLIST_URL = `${url}/api/apply/updateJob`;
+export const GET_SHORTLISTED_CANDIDATES = `${url}/api/apply/getApplicationsByQuery`;

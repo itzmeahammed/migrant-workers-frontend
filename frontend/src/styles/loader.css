@@ -1,0 +1,17 @@
+.loader-img-container {
+  width: 350px;
+  height: 350px;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+.normal-loader-img-container {
+  width: 250px;
+  height: 250px;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+.normal-loader-img-container img {
+  border-radius: 8px;
+}
