@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../styles/jobs.css";
-import {
-  GET_APPLIED_JOBS_ALL_URL,
-  GET_APPLIED_JOBS_URL,
-  SHORTLIST_URL,
-} from "../helper/apiurls";
+import { GET_APPLIED_JOBS_ALL_URL, SHORTLIST_URL } from "../helper/apiurls";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import LoaderPopup from "./loader";
-import { FaFilePdf } from "react-icons/fa6";
+import { FaFilePdf } from "react-icons/fa";
 import { Modal, Box, Button, Typography } from "@mui/material";
 
 const JobsApplied = () => {
@@ -104,9 +100,10 @@ const JobsApplied = () => {
       </Modal>
 
       <div className='jobs-main-container d-flex gap-16'>
+        {appliedJobsData.length === 0 && !isLoading && (
+          <div className='no-data-message'>No Jobs Applied Yet!</div>
+        )}
         {appliedJobsData.map((val, key) => {
-          console.log(val);
-
           const resumeBlob = val.resume
             ? new Blob(
                 [Uint8Array.from(atob(val.resume), (c) => c.charCodeAt(0))],
@@ -125,6 +122,18 @@ const JobsApplied = () => {
               <p>{val?.job?.requirements}</p>
               <span>{val?.job?.description}</span>
 
+              <div className='applicant-info'>
+                <p>
+                  <strong>Username:</strong> {val?.user?.username}
+                </p>
+                <p>
+                  <strong>Email:</strong> {val?.user?.email}
+                </p>
+                <p>
+                  <strong>Contact:</strong> {val?.user?.number}
+                </p>
+              </div>
+
               {resumeUrl && (
                 <div className='d-flex-alc gap-8'>
                   <FaFilePdf />
@@ -133,6 +142,7 @@ const JobsApplied = () => {
                     target='_blank'
                     rel='noopener noreferrer'
                     download={`resume_${key}.pdf`}
+                    className='resume-link'
                   >
                     View Resume
                   </a>

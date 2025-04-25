@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { SIGN_UP_URL, SIGN_IN_URL } from "../helper/apiurls";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const LoginSignUp = () => {
     email: "",
     number: "",
     password: "",
-    role: "",
+    role: "", // Initially empty, "Select Role" is shown
     address: "",
     location: "",
     zipcode: "",
@@ -25,6 +25,8 @@ const LoginSignUp = () => {
 
   const [signupError, setSignupError] = useState("");
   const [loginError, setLoginError] = useState("");
+
+  const checkboxRef = useRef(null); // Reference to the checkbox element
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -70,13 +72,24 @@ const LoginSignUp = () => {
       const data = await res.json();
 
       if (data?.token) {
+        // Set the token and role after signup
         Cookies.set("token", data?.token);
         Cookies.set("role", data?.role);
-        navigate("/user/jobs");
+        setSignupData({
+          username: "",
+          email: "",
+          number: "",
+          password: "",
+          role: "", // Reset role after signup
+          address: "",
+          location: "",
+          zipcode: "",
+        });
+        // Trigger the checkbox click to switch to login form
+        checkboxRef.current.click();
       }
     } catch (error) {
-      alert("Signup failed ! Please try again");
-
+      alert("Signup failed! Please try again");
       console.log(error);
     }
     setisSignLoginSuccess(false);
@@ -108,7 +121,6 @@ const LoginSignUp = () => {
         body: JSON.stringify(loginData),
       });
       const data = await res.json();
-      console.log(data);
 
       if (data?.token) {
         Cookies.set("token", data?.token);
@@ -117,7 +129,7 @@ const LoginSignUp = () => {
         else navigate("/company/jobs-applied");
       }
     } catch (error) {
-      alert("Login failed ! Please try again");
+      alert("Login failed! Please try again");
       console.log(error);
     }
     setisSignLoginSuccess(false);
@@ -127,7 +139,7 @@ const LoginSignUp = () => {
     <>
       {isSignLoginSuccess && <LoaderPopup />}
       <div className='main'>
-        <input type='checkbox' id='chk' aria-hidden='true' />
+        <input type='checkbox' id='chk' aria-hidden='true' ref={checkboxRef} />
 
         <div className='signup'>
           <form onSubmit={handleSignup}>
@@ -177,7 +189,7 @@ const LoginSignUp = () => {
               }
               required
             >
-              <option value='Select Role' disabled hidden>
+              <option value='' disabled hidden>
                 Select Role
               </option>
               <option value='employee'>Employee</option>

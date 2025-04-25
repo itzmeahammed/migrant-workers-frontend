@@ -9,6 +9,7 @@ const ShortListedCandidates = () => {
   const token = Cookies.get("token");
   const [shortlistedData, setshortlistedData] = useState([]);
   const [isLoading, setisLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,18 +33,18 @@ const ShortListedCandidates = () => {
       const data = await response.json();
       setshortlistedData(data);
     } catch (error) {
-      console.error("Error fetching applied jobs:", error);
-      return [];
+      setError("Failed to load shortlisted candidates. Please try again.");
+      console.error("Error fetching shortlisted candidates:", error);
+    } finally {
+      setisLoading(false);
     }
-    setisLoading(false);
   };
 
   useEffect(() => {
-    const token = Cookies.get("token");
     if (!token) {
       navigate("/");
     }
-  }, []);
+  }, [token, navigate]);
 
   useEffect(() => {
     fetchshortlisted();
@@ -53,14 +54,17 @@ const ShortListedCandidates = () => {
     <>
       {isLoading && <LoaderPopup />}
       <div className='jobs-main-container d-flex gap-16'>
+        {error && <div className='no-data-message'>{error}</div>}
+        {shortlistedData.length === 0 && !isLoading && !error && (
+          <div className='no-data-message'>No Data Available</div>
+        )}
         {shortlistedData.map((val, key) => {
           return (
             <div className='jobs-container d-flex-col gap-8 p-16' key={key}>
               <h2>{val?.job?.title}</h2>
-              <h2>{val?.user?.username}</h2>
+              <h3>{val?.user?.username}</h3>
               <p>{val?.user?.email}</p>
               <p>{val?.user?.address}</p>
-
               <p>{val?.user?.location}</p>
               <p>{val?.user?.number}</p>
             </div>

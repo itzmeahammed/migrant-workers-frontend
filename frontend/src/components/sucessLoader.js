@@ -3,13 +3,20 @@ import Loader from "../assets/gif/successtick.gif";
 import Modal from "@mui/material/Modal";
 import "../styles/loader.css";
 
-const SuccessLoader = ({ open, setopen, setJobModalOpen }) => {
+const SuccessLoader = ({
+  isSubmitted,
+  setIsSubmitted,
+  open,
+  setopen,
+  setJobModalOpen,
+}) => {
   return (
     <Modal
-      open={open}
+      open={open || isSubmitted}
       onClose={() => {
-        setopen(false);
-        setJobModalOpen(false);
+        isSubmitted
+          ? setIsSubmitted(false)
+          : setopen(false) || setJobModalOpen(false);
       }}
       className='d-flex-full'
     >

@@ -6,11 +6,6 @@ import { MdWorkHistory } from "react-icons/md";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { GrUserWorker } from "react-icons/gr";
 import { FaFileUpload } from "react-icons/fa";
-
-// import TrafficLogo from "../assets/images/trafficLogo.png";
-// import UploadIcon from "../assets/svg/uploadIcon.svg";
-// import GuideIcon from "../assets/images/manual-book.png";
-// import FineIcon from "../assets/images/fine.png";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -24,56 +19,96 @@ const Sidebar = () => {
   };
 
   const roleofuser = Cookies.get("role");
+  const currentPath = window.location.pathname; // Get the current path to highlight the active menu
 
   return (
-    <div className='sidebar-container d-flex-jsb d-flex-col'>
-      <div className='sidebar-header d-flex-full gap-8'>
-        <GrUserWorker />
+    <div className='sidebar-container'>
+      <div className='sidebar-header'>
+        <GrUserWorker className='icon' />
         <span>Migrant Work Connect</span>
       </div>
-      <div className='sidebar-body p-16'>
-        {roleofuser == "employee" && (
+      <div className='sidebar-body'>
+        {roleofuser === "employee" && (
           <>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <MdWork />
-
-              <Link to='/user/jobs'>Jobs</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/user/jobs" ? "active" : ""
+              }`}
+            >
+              <MdWork className='sidebar-icon' />
+              <Link to='/user/jobs' className='sidebar-link'>
+                Jobs
+              </Link>
             </div>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <MdWork />
-
-              <Link to='/user/minijobs'>Mini Jobs</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/user/minijobs" ? "active" : ""
+              }`}
+            >
+              <MdWork className='sidebar-icon' />
+              <Link to='/user/minijobs' className='sidebar-link'>
+                Mini Jobs
+              </Link>
             </div>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <FaFileUpload />
-              <Link to='/user/post-minijobs'>Post Mini Jobs</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/user/post-minijobs" ? "active" : ""
+              }`}
+            >
+              <FaFileUpload className='sidebar-icon' />
+              <Link to='/user/post-minijobs' className='sidebar-link'>
+                Post Mini Jobs
+              </Link>
             </div>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <MdWorkHistory />
-              <Link to='/user/jobs-applied-user'>Jobs Applied by me</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/user/jobs-applied-user" ? "active" : ""
+              }`}
+            >
+              <MdWorkHistory className='sidebar-icon' />
+              <Link to='/user/jobs-applied-user' className='sidebar-link'>
+                Jobs Applied by me
+              </Link>
             </div>
           </>
         )}
 
-        {roleofuser != "employee" && (
+        {roleofuser !== "employee" && (
           <>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <FaFileUpload />
-              <Link to='/company/postjobs'>Post Job</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/company/postjobs" ? "active" : ""
+              }`}
+            >
+              <FaFileUpload className='sidebar-icon' />
+              <Link to='/company/postjobs' className='sidebar-link'>
+                Post Job
+              </Link>
             </div>
-
-            <div className='sidebar-body-item d-flex gap-8'>
-              <MdWorkHistory />
-              <Link to='/company/jobs-applied'>Jobs Applied</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/company/jobs-applied" ? "active" : ""
+              }`}
+            >
+              <MdWorkHistory className='sidebar-icon' />
+              <Link to='/company/jobs-applied' className='sidebar-link'>
+                Jobs Applied
+              </Link>
             </div>
-            <div className='sidebar-body-item d-flex gap-8'>
-              <FaFileUpload />
-              <Link to='/company/selected'>Selected Candidates</Link>
+            <div
+              className={`sidebar-body-item ${
+                currentPath === "/company/selected" ? "active" : ""
+              }`}
+            >
+              <FaFileUpload className='sidebar-icon' />
+              <Link to='/company/selected' className='sidebar-link'>
+                Selected Candidates
+              </Link>
             </div>
           </>
         )}
       </div>
-      <div className='sidebar-footer d-flex-full p-16'>
+      <div className='sidebar-footer'>
         <button onClick={handleSignOut}>Sign out</button>
       </div>
     </div>

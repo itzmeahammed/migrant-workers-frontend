@@ -1,49 +1,107 @@
 .sidebar-container {
   height: 100vh;
   width: 224px;
-  background-color: #fff;
+  background: #121212;
+  /* Dark theme */
   position: absolute;
   left: 0;
   top: 0;
   z-index: 1000;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  font-family: Arial, sans-serif;
 }
-.sidebar-container .sidebar-header {
-  padding: 24px 0;
-}
-.sidebar-container .sidebar-header span {
+
+.sidebar-header {
+  padding: 24px;
+  color: #fff;
+  font-size: 18px;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-header span {
+  margin-left: 10px;
   letter-spacing: 0.15px;
 }
 
-.sidebar-container .sidebar-body .sidebar-body-item {
-  display: flex;
-  justify-self: flex-start;
-  justify-content: center;
-  align-items: center;
-  min-height: 48px;
+.sidebar-header .icon {
+  font-size: 28px;
+  color: #fff;
 }
 
-.sidebar-container .sidebar-body a {
+.sidebar-body {
+  padding: 16px;
+}
+
+.sidebar-body .sidebar-body-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-body .sidebar-body-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-body .sidebar-body-item.active {
+  background-color: #1e293b;
+  /* Dark blue highlight for active item */
+}
+
+.sidebar-body .sidebar-icon {
+  font-size: 24px;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.sidebar-body .sidebar-link {
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
   letter-spacing: 0.15px;
-  height: 24px;
+  transition: color 0.3s ease;
 }
 
-.sidebar-container .sidebar-footer button {
-  background-color: #fff;
-  border: 1px solid #000;
-  color: #000;
+.sidebar-body .sidebar-link:hover {
+  color: #f0a500;
+  /* Highlight on hover */
 }
-.sidebar-container .sidebar-footer button:hover {
+
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  width: calc(100% - 32px);
+}
+
+.sidebar-footer button {
+  width: 100%;
+  padding: 12px;
+  background-color: #fff;
+  color: #1d3b68;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-footer button:hover {
   background-color: #ba1a1a;
-  border: 1px solid #fff;
   color: #fff;
+}
+
+.sidebar-footer button:focus {
+  outline: none;
+}
+
+.sidebar-body-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 16px;
 }
